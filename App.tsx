@@ -4,6 +4,7 @@ import NavBar from './NavBar';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import Home from './Home';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -21,6 +22,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Home />
       <NavBar />
       <StatusBar style='auto' />
     </View>
@@ -30,8 +32,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#EFEAD9',
+    justifyContent: 'flex-start',
+    padding: 20
   },
 });

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     height: 80,
-    width: '100%',
+    width: '111%',
     backgroundColor: '#D7D3C3'
   },
   navItem: {
