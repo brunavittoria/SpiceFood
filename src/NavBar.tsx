@@ -1,5 +1,6 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
+import React from 'react';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -9,21 +10,21 @@ export default function NavBar() {
 
       <View style={styles.navItem}>
         <View style={styles.icon}>
-          <Image source={require('./assets/icons/fork-spoon.png')} />
+          <Image source={require('../assets/icons/fork-spoon.png')} />
         </View>
         <Text style={styles.txt}>Início</Text>
       </View>
 
       <View style={styles.navItem}>
         <View style={styles.icon}>
-          <Image source={require('./assets/icons/recipes-book.png')} />
+          <Image source={require('../assets/icons/recipes-book.png')} />
         </View>
         <Text style={styles.txt}>Suas Receitas</Text>
       </View>
       
       <View style={styles.navItem}>
         <View style={styles.icon}>
-          <Image source={require('./assets/icons/profile.png')} />
+          <Image source={require('../assets/icons/profile.png')} />
         </View>
         <Text style={styles.txt}>Conta</Text>
       </View>

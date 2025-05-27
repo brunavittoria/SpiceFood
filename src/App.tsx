@@ -5,13 +5,15 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import Home from './Home';
+import React from 'react';
+import User from './User';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [loaded, error] = useFonts({
-    'Mulish': require('./assets/fonts/Mulish.ttf'),
-    'Quicksand': require('./assets/fonts/Quicksand.ttf'),
+    'Mulish': require('../assets/fonts/Mulish.ttf'),
+    'Quicksand': require('../assets/fonts/Quicksand.ttf'),
   });
 
   useEffect(() => {
@@ -22,7 +24,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Home />
+      {/* <Home /> */}
+      <User />
       <NavBar />
       <StatusBar style='auto' />
     </View>
@@ -34,6 +37,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#EFEAD9',
     justifyContent: 'flex-start',
-    padding: 20
+    // padding: 20
   },
 });
