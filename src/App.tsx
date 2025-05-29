@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import NavBar from './NavBar';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Home from './Home';
 import React from 'react';
 import User from './User';
@@ -11,6 +11,7 @@ import User from './User';
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const [currentScreen, setCurrentScreen] = useState(<Home />);
   const [loaded, error] = useFonts({
     'Mulish': require('../assets/fonts/Mulish.ttf'),
     'Quicksand': require('../assets/fonts/Quicksand.ttf'),
@@ -24,9 +25,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {/* <Home /> */}
-      <User />
-      <NavBar />
+      {currentScreen}
+      <NavBar setCurrentScreen={setCurrentScreen} />
       <StatusBar style='auto' />
     </View>
   );
@@ -37,6 +37,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#EFEAD9',
     justifyContent: 'flex-start',
-    // padding: 20
   },
 });

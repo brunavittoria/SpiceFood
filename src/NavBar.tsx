@@ -1,37 +1,40 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import React from 'react';
+import Home from './Home';
+import User from './User';
 
 SplashScreen.preventAutoHideAsync();
 
-export default function NavBar() {
+export default function NavBar({ setCurrentScreen }) {
   return (
     <View style={styles.navbar}>
 
       <View style={styles.navItem}>
-        <View style={styles.icon}>
+        <Pressable style={styles.icon} onPress={() => setCurrentScreen(<Home />)}>
           <Image source={require('../assets/icons/fork-spoon.png')} />
-        </View>
+        </Pressable>
         <Text style={styles.txt}>Início</Text>
       </View>
 
       <View style={styles.navItem}>
-        <View style={styles.icon}>
+        <Pressable style={styles.icon} onPress={() => setCurrentScreen(<></>)}>
           <Image source={require('../assets/icons/recipes-book.png')} />
-        </View>
+        </Pressable>
         <Text style={styles.txt}>Suas Receitas</Text>
       </View>
-      
+
       <View style={styles.navItem}>
-        <View style={styles.icon}>
+        <Pressable style={styles.icon} onPress={() => setCurrentScreen(<User />)}>
           <Image source={require('../assets/icons/profile.png')} />
-        </View>
+        </Pressable>
         <Text style={styles.txt}>Conta</Text>
       </View>
 
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   navbar: {
     position: 'absolute',
@@ -40,7 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     height: 80,
-    width: '111%',
+    width: '100%',
     backgroundColor: '#D7D3C3'
   },
   navItem: {

@@ -4,13 +4,13 @@ import React from 'react';
 
 export default function Home() {
   return (
-    <>
+    <View style={styles.container}>
       <View style={styles.searchBox}>
         <Text style={[styles.txt, styles.title]}>Receitas</Text>
-        {/* Configure btn for back end */}
         <Image style={styles.logo} source={require('../assets/icons/logo-app.png')} />
       </View>
 
+      {/* Configure btn for back end */}
       <View>
         <TextInput style={styles.input} placeholder='Pesquisar' />
         <Image style={styles.inputIcon} source={require('../assets/icons/search.png')} />
@@ -28,10 +28,14 @@ export default function Home() {
         <CardRecipe title='Pizza de Queijo' description='Feita com muito Amor e Carinho' />
         <CardRecipe title='Sorvete Limão e canela' description='Com um toque de canela' />
       </ScrollView>
-    </>
+    </View>
   );
 }
+
 const styles = StyleSheet.create({
+  container: {
+    padding: 20
+  },
   searchBox: {
     flexDirection: 'row',
     alignItems: 'center',

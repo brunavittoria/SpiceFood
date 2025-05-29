@@ -10,6 +10,7 @@ export default function CardRecipe({ title, description }) {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
