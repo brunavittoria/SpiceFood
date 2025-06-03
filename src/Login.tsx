@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Mulish'
   },
   inputBox: {
-    top: -150,
+    top: -100,
     marginTop: 100,
   },
   entrarBtn: {
@@ -119,7 +119,6 @@ const styles = StyleSheet.create({
     left: 115,
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#264129'
-
+    color: '#264129',
   }
 });
