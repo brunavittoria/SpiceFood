@@ -6,7 +6,7 @@ export default function Login() {
     <View style={styles.container}>
       <Image source={require('../assets/icons/logo-app.png')} style={styles.logoImg} />
       <Text style={styles.spiceFood}>SpiceFood</Text>
-      <View style={styles.triangulo}>
+      <View style={styles.triangle}>
       </View>
       <View style={styles.inputBox}>
         <TextInput
@@ -20,11 +20,12 @@ export default function Login() {
           style={styles.input}
           placeholder='Senha'
           placeholderTextColor={'white'}
+          keyboardType='number-pad'
           secureTextEntry={true}
           maxLength={6}
         />
-        <TouchableOpacity style={styles.btn}>
-          <Text style={styles.Titulo}>Entrar</Text>
+        <TouchableOpacity style={styles.entrarBtn}>
+          <Text style={styles.btnText}>Entrar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.convidadoBtn}>
           <Text style={styles.convidadoText}>Entrar como convidado</Text>
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20
   },
-  triangulo: {
+  triangle: {
     position: 'absolute',
     top: -850,
     left: '-78%',
@@ -62,14 +63,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Mulish'
   },
   inputBox: {
-    marginTop: 150,
+    top: -150,
+    marginTop: 100,
   },
-  btn: {
+  entrarBtn: {
     top: 20 ,
     backgroundColor: '#EFEAD9',
     borderRadius: 10
   },
-  Titulo: {
+  btnText: {
     fontSize: 24,
     marginTop: 10,
     marginBottom: 10,
@@ -109,9 +111,15 @@ const styles = StyleSheet.create({
     width: 256,
     zIndex: 1,
     alignSelf: 'center',
-    top: -80
+    top: -100
   },
   spiceFood: {
-    
+    top: -120,
+    zIndex: 1,
+    left: 115,
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#264129'
+
   }
 });
