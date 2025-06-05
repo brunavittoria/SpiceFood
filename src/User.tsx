@@ -6,7 +6,7 @@ export default function User() {
     <>
       <View style={styles.bckgTop}></View>
       <View style={styles.bckgBottom}></View>
-      <Text style={styles.name}>$userName</Text>
+      <Text style={styles.name}>Bem Vindo, $userName</Text>
       <View style={styles.optionsBox}>
         <View style={styles.option}>
           <Image source={require('../assets/icons/heart.png')} style={styles.icon} />
@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     position: 'absolute',
     top: 150,
-    alignSelf: 'center',
+    textAlign: 'center',
+    padding: 20,
     zIndex: 1
   },
   optionsBox: {
