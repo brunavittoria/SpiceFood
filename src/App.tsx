@@ -7,6 +7,11 @@ import { useEffect, useState } from 'react';
 import Home from './Home';
 import React from 'react';
 import User from './User';
+import Login from './Login';
+import Cadastrar from './Cadastrar';
+import EditUser from './EditUser';
+import AdicionarReceitas from './AdicionarReceitas';
+import EnviarReceitas from './EnviarReceita';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,7 +30,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {currentScreen}
+      {/* {currentScreen} */}
+      <EnviarReceitas />
       <NavBar setCurrentScreen={setCurrentScreen} />
       <StatusBar style='auto' />
     </View>
