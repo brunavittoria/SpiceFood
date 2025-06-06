@@ -1,8 +1,41 @@
 import { Image, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import CardRecipe from './CardRecipe';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { db } from './Firebase';
 
 export default function Home() {
+  const [recipes, setRecipes] = useState([]);
+
+  // Gets data when app loads and everytime database changes
+  useEffect(() => {
+    const getData = async () => {
+      const recipesRef = collection(db, 'recipes');
+
+      onSnapshot(recipesRef, (snapshot) => {
+        let list = [];
+
+        snapshot.forEach((doc) => {
+          list.push({
+            id: doc.id,
+            title: doc.data().title,
+            description: doc.data().description,
+            owner: doc.data().owner,
+            imageURL: doc.data().imageURL,
+            difficulty: doc.data().difficult,
+            time: doc.data().time,
+            kcal: doc.data().kcal,
+            ingredients: doc.data().ingredients,
+            howToDo: doc.data().howToDo,
+          });
+        });
+
+        console.log(list);
+        setRecipes(list);
+      });
+    }
+    getData();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.searchBox}>
@@ -17,7 +50,9 @@ export default function Home() {
       </View>
 
       <ScrollView contentContainerStyle={styles.cardsBox}>
-        <CardRecipe title='Pizza de Queijo' description='Feita com muito Amor e Carinho' />
+        {recipes.map((recipe, index) => <CardRecipe key={index} id={recipe.id} title={recipe.title} description={recipe.description} imageURL={recipe.imageURL} />)}
+
+        {/* <CardRecipe title='Pizza de Queijo' description='Feita com muito Amor e Carinho' />
         <CardRecipe title='Sorvete Limão e canela' description='Com um toque de canela' />
         <CardRecipe title='Pizza de Queijo' description='Feita com muito Amor e Carinho' />
         <CardRecipe title='Sorvete Limão e canela' description='Com um toque de canela' />
@@ -26,7 +61,7 @@ export default function Home() {
         <CardRecipe title='Pizza de Queijo' description='Feita com muito Amor e Carinho' />
         <CardRecipe title='Sorvete Limão e canela' description='Com um toque de canela' />
         <CardRecipe title='Pizza de Queijo' description='Feita com muito Amor e Carinho' />
-        <CardRecipe title='Sorvete Limão e canela' description='Com um toque de canela' />
+        <CardRecipe title='Sorvete Limão e canela' description='Com um toque de canela' /> */}
       </ScrollView>
     </View>
   );
