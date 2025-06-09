@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView,} from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, } from 'react-native';
 
 export default function EnviarReceitas() {
     const [tempo, setTempo] = useState(90);
+    const [dificuldade, setDificuldade] = useState<'Facil' | 'Medio' | 'Dificil'>('Facil');
+    const [calorias, setCalorias] = useState('1000');
+    const [ingredientes, setIngredientes] = useState('');
+    const [passo, setPasso] = useState('');
 
     return (
         <View style={styles.container}>
@@ -14,35 +18,35 @@ export default function EnviarReceitas() {
                     <Text style={styles.desc}>Imagem</Text>
                     <Image source={require('../assets/cheese-pizza.jpg')} style={styles.image} />
 
-                    <Text style={styles.Titulo}>Título</Text>
+                    <Text style={[styles.Titulo, {bottom: 30}]}>Título</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Adicione um Nome"
                     />
 
-                    <Text style={styles.desc}>Descrição</Text>
+                    <Text style={[styles.desc, {bottom: 20}]}>Descrição</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Adicione uma Descrição"
                     />
 
-                    <Text style={styles.desc}>Ingredientes</Text>
+                    <Text style={[styles.desc, {bottom: 20}]}>Ingredientes</Text>
                     <View style={styles.caixadesc}>
                         <TextInput
                             style={styles.preparo}
-                            placeholder='Adicione os Ingredientes'
+                            placeholder="Adicione os Ingredientes"
                         />
                     </View>
 
-                    <Text style={styles.desc}>Passo a Passo</Text>
+                    <Text style={[styles.desc, {bottom: 25}]}>Passo a Passo</Text>
                     <View style={styles.caixadesc}>
                         <TextInput
                             style={styles.preparo}
-                            placeholder='Adicione um Modo de Preparo'
+                            placeholder="Adicione um Modo de Preparo"
                         />
                     </View>
 
-                    <Text style={styles.desc}>Tempo</Text>
+                    <Text style={[styles.desc, {bottom: 25}]}>Tempo</Text>
                     <View style={styles.boxTempo}>
                         <TouchableOpacity onPress={() => setTempo(Math.max(0, tempo - 5))}>
                             <Text style={styles.tempoBtn}>-</Text>
@@ -51,7 +55,32 @@ export default function EnviarReceitas() {
                         <TouchableOpacity onPress={() => setTempo(tempo + 5)}>
                             <Text style={styles.tempoBtn}>+</Text>
                         </TouchableOpacity>
-                        </View>
+                    </View>
+
+                    <Text style={[styles.desc, {bottom: 20}]}>Dificuldade</Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20, bottom: 20 }}>
+                        {['Facil', 'Medio', 'Dificil'].map((nivel) => (
+                            <TouchableOpacity key={nivel} onPress={() => setDificuldade(nivel as any)}>
+                                <Text style={{ fontSize: 25, color: 'black' }}>
+                                    {dificuldade === nivel ? '●' : '○'} {nivel}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+
+                    <Text style={[styles.desc, {bottom: 45}]}>Calorias</Text>
+                    <TextInput
+                        style={styles.caloriaInput}
+                        keyboardType="numeric"
+                        value={calorias}
+                        onChangeText={setCalorias}
+                        placeholder="Calorias (kcal)"
+                        placeholderTextColor="#264129"
+                    />
+
+                    <TouchableOpacity style={styles.botao}>
+                        <Text style={{ color: 'white', fontSize: 18, textAlign: 'center' }}>Salvar</Text>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         </View>
@@ -61,7 +90,7 @@ export default function EnviarReceitas() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#EFEAD9'
+        backgroundColor: '#EFEAD9',
     },
     header: {
         paddingTop: 50,
@@ -71,9 +100,11 @@ const styles = StyleSheet.create({
         fontSize: 22,
         color: '#000000',
         textAlign: 'center',
+        bottom: 25
     },
     conteudo: {
         paddingHorizontal: 16,
+//        bottom: 50,
     },
     image: {
         width: '100%',
@@ -91,7 +122,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 25,
         color: '#000000',
-        marginBottom: 30,
+        marginBottom: 15,
     },
     input: {
         fontSize: 18,
@@ -100,6 +131,7 @@ const styles = StyleSheet.create({
         paddingVertical: 4,
         paddingHorizontal: 8,
         color: '#000000',
+        bottom: 15
     },
     caixadesc: {
         marginTop: 10,
@@ -109,6 +141,7 @@ const styles = StyleSheet.create({
         padding: 12,
         borderColor: '#264129',
         borderWidth: 2,
+        bottom: 25
     },
     texto: {
         fontSize: 14,
@@ -122,19 +155,39 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     boxTempo: {
-    width: '85%',
-    alignSelf: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: '#264129',
-    borderRadius: 8,
-    paddingVertical: 10,
-  },
+        width: '85%',
+        alignSelf: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 2,
+        borderColor: '#264129',
+        borderRadius: 8,
+        paddingVertical: 10,
+        bottom: 20,
+    },
     tempoBtn: {
-    fontSize: 24,
-    paddingHorizontal: 16,
-    color: '#264129',
-  },
+        fontSize: 24,
+        paddingHorizontal: 16,
+        color: '#264129',
+    },
+    caloriaInput: {
+        textAlign: 'center',
+        fontSize: 18,
+        color: '#264129',
+        marginBottom: 16,
+        borderBottomWidth: 1,
+        borderColor: '#264129',
+        paddingBottom: 4,
+        marginHorizontal: 100,
+        bottom: 50,
+    },
+    botao: {
+        backgroundColor: '#264129',
+        paddingVertical: 14,
+        borderRadius: 8,
+        marginTop: 20,
+        marginBottom: 40,
+        bottom: 60
+    },
 });
