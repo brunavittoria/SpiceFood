@@ -1,7 +1,31 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert, } from 'react-native';
+import React, { useState } from 'react';
+import Login from './Login';
+import { auth, db } from './Firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth/cordova';
+import { collection, doc, setDoc } from 'firebase/firestore';
 
-export default function Login() {
+export default function SignUp({ setCurrentScreen, setLoggedUser }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+
+  const signUp = async () => {
+    try {
+      const userAuthCreate = await createUserWithEmailAndPassword(auth, email, pass);
+
+      if (userAuthCreate) {
+        const userCreate = await setDoc(doc(collection(db, "users"), email), {
+          name: name
+        });
+
+        Alert.alert('Sucesso!', 'Cadastro realizado!');
+      }
+    } catch (error) {
+      Alert.alert('Erro!', String(error));
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Image source={require('../assets/icons/logo-app.png')} style={styles.logoImg} />
@@ -14,6 +38,7 @@ export default function Login() {
           placeholder='Nome'
           placeholderTextColor={'white'}
           maxLength={30}
+          onChangeText={(value) => setName(value)}
         />
         <TextInput
           style={styles.input}
@@ -21,6 +46,7 @@ export default function Login() {
           placeholderTextColor={'white'}
           keyboardType="email-address"
           maxLength={30}
+          onChangeText={(value) => setEmail(value)}
         />
         <TextInput
           style={styles.input}
@@ -28,13 +54,14 @@ export default function Login() {
           placeholderTextColor={'white'}
           keyboardType='number-pad'
           secureTextEntry={true}
-          maxLength={10}
+          maxLength={12}
+          onChangeText={(value) => setPass(value)}
         />
-        <TouchableOpacity style={styles.cadastrarBtn}>
+        <TouchableOpacity style={styles.cadastrarBtn} onPress={signUp}>
           <Text style={styles.btnText}>Cadastrar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.semContaBtn}>
-          <Text style={styles.semContaText}>Já tem uma conta? {'\n'} Entre aqui.</Text>
+          <Text style={styles.semContaText} onPress={() => setCurrentScreen(<Login setCurrentScreen={setCurrentScreen} setLoggedUser={setLoggedUser} />)}>Já tem uma conta? {'\n'} Entre aqui.</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -52,10 +79,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -850,
     left: '-78%',
-    height: 1000, 
+    height: 1000,
     width: 1000,
     backgroundColor: '#EFEAD9',
-    transform: [{'rotate': '45deg'}],
+    transform: [{ 'rotate': '45deg' }],
   },
   input: {
     padding: 20,
@@ -66,11 +93,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Mulish'
   },
   inputBox: {
-    top: -100,
     marginTop: 100,
   },
   cadastrarBtn: {
-    top: 20 ,
+    top: 20,
     backgroundColor: '#EFEAD9',
     borderRadius: 10
   },
@@ -82,7 +108,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold'
   },
-  semContaBtn :{
+  semContaBtn: {
     top: 120,
     backgroundColor: '#EFEAD9',
     borderRadius: 10,
@@ -94,16 +120,18 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   logoImg: {
+    position: 'absolute',
+    top: -20,
     height: 256,
     width: 256,
     zIndex: 1,
     alignSelf: 'center',
-    top: -100
   },
   spiceFood: {
-    top: -120,
+    position: 'absolute',
+    top: 210,
+    alignSelf: 'center',
     zIndex: 1,
-    left: 115,
     fontSize: 32,
     fontWeight: 'bold',
     color: '#264129',
