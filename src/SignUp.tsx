@@ -1,8 +1,31 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert, } from 'react-native';
+import React, { useState } from 'react';
 import Login from './Login';
+import { auth, db } from './Firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth/cordova';
+import { collection, doc, setDoc } from 'firebase/firestore';
 
-export default function SignUp({ setCurrentScreen }) {
+export default function SignUp({ setCurrentScreen, setLoggedUser }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+
+  const signUp = async () => {
+    try {
+      const userAuthCreate = await createUserWithEmailAndPassword(auth, email, pass);
+
+      if (userAuthCreate) {
+        const userCreate = await setDoc(doc(collection(db, "users"), email), {
+          name: name
+        });
+
+        Alert.alert('Sucesso!', 'Cadastro realizado!');
+      }
+    } catch (error) {
+      Alert.alert('Erro!', String(error));
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Image source={require('../assets/icons/logo-app.png')} style={styles.logoImg} />
@@ -15,6 +38,7 @@ export default function SignUp({ setCurrentScreen }) {
           placeholder='Nome'
           placeholderTextColor={'white'}
           maxLength={30}
+          onChangeText={(value) => setName(value)}
         />
         <TextInput
           style={styles.input}
@@ -22,6 +46,7 @@ export default function SignUp({ setCurrentScreen }) {
           placeholderTextColor={'white'}
           keyboardType="email-address"
           maxLength={30}
+          onChangeText={(value) => setEmail(value)}
         />
         <TextInput
           style={styles.input}
@@ -29,13 +54,14 @@ export default function SignUp({ setCurrentScreen }) {
           placeholderTextColor={'white'}
           keyboardType='number-pad'
           secureTextEntry={true}
-          maxLength={10}
+          maxLength={12}
+          onChangeText={(value) => setPass(value)}
         />
-        <TouchableOpacity style={styles.cadastrarBtn}>
+        <TouchableOpacity style={styles.cadastrarBtn} onPress={signUp}>
           <Text style={styles.btnText}>Cadastrar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.semContaBtn}>
-          <Text style={styles.semContaText} onPress={() => setCurrentScreen(<Login setCurrentScreen={setCurrentScreen} />)}>Já tem uma conta? {'\n'} Entre aqui.</Text>
+          <Text style={styles.semContaText} onPress={() => setCurrentScreen(<Login setCurrentScreen={setCurrentScreen} setLoggedUser={setLoggedUser} />)}>Já tem uma conta? {'\n'} Entre aqui.</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -4,11 +4,11 @@
     "slug": "SpiceFood",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icons/logo-app.png",
+    "icon": "./assets/icons/logo-app.jpg",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "",
+      "image": "./assets/icons/logo-app.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

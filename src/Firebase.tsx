@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { initializeAuth } from "firebase/auth/cordova";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -12,5 +13,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = initializeAuth(app);
 
-export { db }
+export { db, auth };

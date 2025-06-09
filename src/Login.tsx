@@ -1,8 +1,34 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert, } from 'react-native';
+import React, { useState } from 'react';
 import SignUp from './SignUp';
+import { signInWithEmailAndPassword } from 'firebase/auth/cordova';
+import { auth, db } from './Firebase';
+import Home from './Home';
+import { collection, doc, getDoc } from 'firebase/firestore';
 
-export default function Login({ setCurrentScreen }) {
+export default function Login({ setCurrentScreen, setLoggedUser }) {
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+
+  const signIn = async () => {
+    try {
+      const login = await signInWithEmailAndPassword(auth, email, pass);
+
+      if (login) {
+        const userRef = doc(collection(db, 'users'), email);
+        const data = (await getDoc(userRef)).data();
+        
+        setLoggedUser({
+          name: data.name,
+          email: email,
+        })
+        setCurrentScreen(<Home />);
+      }
+    } catch (error) {
+      Alert.alert('Erro!', String(error));
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Image source={require('../assets/icons/logo-app.png')} style={styles.logoImg} />
@@ -16,6 +42,7 @@ export default function Login({ setCurrentScreen }) {
           placeholderTextColor={'white'}
           keyboardType="email-address"
           maxLength={30}
+          onChangeText={(value) => setEmail(value)}
         />
         <TextInput
           style={styles.input}
@@ -24,14 +51,15 @@ export default function Login({ setCurrentScreen }) {
           keyboardType='number-pad'
           secureTextEntry={true}
           maxLength={6}
+          onChangeText={(value) => setPass(value)}
         />
-        <TouchableOpacity style={styles.entrarBtn}>
+        <TouchableOpacity style={styles.entrarBtn} onPress={signIn}>
           <Text style={styles.btnText}>Entrar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.convidadoBtn}>
           <Text style={styles.convidadoText}>Entrar como convidado</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.semContaBtn} onPress={() => setCurrentScreen(<SignUp setCurrentScreen={setCurrentScreen} />)}>
+        <TouchableOpacity style={styles.semContaBtn} onPress={() => setCurrentScreen(<SignUp setCurrentScreen={setCurrentScreen} setLoggedUser={setLoggedUser} />)}>
           <Text style={styles.semContaText}>Não tem uma conta? {'\n'} Cadastre-se aqui!</Text>
         </TouchableOpacity>
       </View>

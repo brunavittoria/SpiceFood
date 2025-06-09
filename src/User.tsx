@@ -1,12 +1,10 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 
-export default function User() {
+export default function User({ loggedUser }) {
   return (
-    <>
-      <View style={styles.bckgTop}></View>
-      <View style={styles.bckgBottom}></View>
-      <Text style={styles.name}>Bem Vindo, $userName</Text>
+    <View style={styles.container}>
+      <Text style={styles.name}>Bem Vindo, {loggedUser}</Text>
       <View style={styles.optionsBox}>
         <View style={styles.option}>
           <Image source={require('../assets/icons/heart.png')} style={styles.icon} />
@@ -33,18 +31,14 @@ export default function User() {
           <Text>Sair da Conta</Text>
         </View>
       </View>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  bckgTop: {
-    flex: 1,
-    backgroundColor: '#335637'
-  },
-  bckgBottom: {
-    flex: 1,
-    backgroundColor: '#ffffff'
+  container: {
+    height: '50%',
+    backgroundColor: '#335637',
   },
   name: {
     fontFamily: 'Mulish',
@@ -54,6 +48,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 150,
     textAlign: 'center',
+    alignSelf: 'center',
     padding: 20,
     zIndex: 1
   },

@@ -6,7 +6,7 @@ import User from './User';
 
 SplashScreen.preventAutoHideAsync();
 
-export default function NavBar({ setCurrentScreen }) {
+export default function NavBar({ setCurrentScreen, loggedUser }) {
   return (
     <View style={styles.navbar}>
 
@@ -25,7 +25,7 @@ export default function NavBar({ setCurrentScreen }) {
       </View>
 
       <View style={styles.navItem}>
-        <Pressable style={styles.icon} onPress={() => setCurrentScreen(<User />)}>
+        <Pressable style={styles.icon} onPress={() => setCurrentScreen(<User loggedUser={loggedUser.name} />)}>
           <Image source={require('../assets/icons/profile.png')} />
         </Pressable>
         <Text style={styles.txt}>Conta</Text>
