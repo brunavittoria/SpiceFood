@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, } from 'react-native';
 import React from 'react';
+import SignUp from './SignUp';
 
-export default function Login() {
+export default function Login({ setCurrentScreen }) {
   return (
     <View style={styles.container}>
       <Image source={require('../assets/icons/logo-app.png')} style={styles.logoImg} />
@@ -30,7 +31,7 @@ export default function Login() {
         <TouchableOpacity style={styles.convidadoBtn}>
           <Text style={styles.convidadoText}>Entrar como convidado</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.semContaBtn}>
+        <TouchableOpacity style={styles.semContaBtn} onPress={() => setCurrentScreen(<SignUp setCurrentScreen={setCurrentScreen} />)}>
           <Text style={styles.semContaText}>Não tem uma conta? {'\n'} Cadastre-se aqui!</Text>
         </TouchableOpacity>
       </View>
@@ -49,10 +50,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -850,
     left: '-78%',
-    height: 1000, 
+    height: 1000,
     width: 1000,
     backgroundColor: '#EFEAD9',
-    transform: [{'rotate': '45deg'}],
+    transform: [{ 'rotate': '45deg' }],
   },
   input: {
     padding: 20,
@@ -63,11 +64,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Mulish'
   },
   inputBox: {
-    top: -100,
     marginTop: 100,
   },
   entrarBtn: {
-    top: 20 ,
+    top: 20,
     backgroundColor: '#EFEAD9',
     borderRadius: 10
   },
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     margin: 10,
     fontFamily: 'Mulish'
   },
-  semContaBtn :{
+  semContaBtn: {
     top: 120,
     backgroundColor: '#EFEAD9',
     borderRadius: 10,
@@ -107,16 +107,18 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   logoImg: {
+    position: 'absolute',
+    top: -20,
     height: 256,
     width: 256,
     zIndex: 1,
     alignSelf: 'center',
-    top: -100
   },
   spiceFood: {
-    top: -120,
+    position: 'absolute',
+    top: 210,
+    alignSelf: 'center',
     zIndex: 1,
-    left: 115,
     fontSize: 32,
     fontWeight: 'bold',
     color: '#264129',
