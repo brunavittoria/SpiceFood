@@ -1,12 +1,35 @@
+import { addDoc, collection } from 'firebase/firestore';
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, Alert, } from 'react-native';
+import { db } from './Firebase';
 
-export default function EnviarReceitas() {
+export default function EnviarReceita({ loggedUser }) {
     const [tempo, setTempo] = useState(90);
     const [dificuldade, setDificuldade] = useState<'Facil' | 'Medio' | 'Dificil'>('Facil');
     const [calorias, setCalorias] = useState('1000');
     const [ingredientes, setIngredientes] = useState('');
     const [passo, setPasso] = useState('');
+    const [titulo, setTitulo] = useState('');
+    const [descricao, setDescricao] = useState('');
+
+    const enviarReceita = async () => {
+        try {
+            await addDoc(collection(db, 'recipes'), {
+                description: descricao,
+                difficulty: dificuldade,
+                howToDo: passo,
+                imgURL: '',
+                ingredients: ingredientes,
+                kcal: calorias,
+                owner: loggedUser,
+                time: tempo,
+                title: titulo
+            })
+            .then(() => Alert.alert('Sucesso!', 'Receita enviada!'));
+        } catch (error) {
+            Alert.alert('Erro!', String(error));
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -18,35 +41,39 @@ export default function EnviarReceitas() {
                     <Text style={styles.desc}>Imagem</Text>
                     <Image source={require('../assets/cheese-pizza.jpg')} style={styles.image} />
 
-                    <Text style={[styles.Titulo, {bottom: 30}]}>Título</Text>
+                    <Text style={[styles.Titulo, { bottom: 30 }]}>Título</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Adicione um Nome"
+                        onChangeText={(value) => setTitulo(value)}
                     />
 
-                    <Text style={[styles.desc, {bottom: 20}]}>Descrição</Text>
+                    <Text style={[styles.desc, { bottom: 20 }]}>Descrição</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Adicione uma Descrição"
+                        onChangeText={(value) => setDescricao(value)}
                     />
 
-                    <Text style={[styles.desc, {bottom: 20}]}>Ingredientes</Text>
+                    <Text style={[styles.desc, { bottom: 20 }]}>Ingredientes</Text>
                     <View style={styles.caixadesc}>
                         <TextInput
                             style={styles.preparo}
                             placeholder="Adicione os Ingredientes"
+                            onChangeText={(value) => setIngredientes(value)}
                         />
                     </View>
 
-                    <Text style={[styles.desc, {bottom: 25}]}>Passo a Passo</Text>
+                    <Text style={[styles.desc, { bottom: 25 }]}>Passo a Passo</Text>
                     <View style={styles.caixadesc}>
                         <TextInput
                             style={styles.preparo}
                             placeholder="Adicione um Modo de Preparo"
+                            onChangeText={(value) => setPasso(value)}
                         />
                     </View>
 
-                    <Text style={[styles.desc, {bottom: 25}]}>Tempo</Text>
+                    <Text style={[styles.desc, { bottom: 25 }]}>Tempo</Text>
                     <View style={styles.boxTempo}>
                         <TouchableOpacity onPress={() => setTempo(Math.max(0, tempo - 5))}>
                             <Text style={styles.tempoBtn}>-</Text>
@@ -57,7 +84,7 @@ export default function EnviarReceitas() {
                         </TouchableOpacity>
                     </View>
 
-                    <Text style={[styles.desc, {bottom: 20}]}>Dificuldade</Text>
+                    <Text style={[styles.desc, { bottom: 20 }]}>Dificuldade</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20, bottom: 20 }}>
                         {['Facil', 'Medio', 'Dificil'].map((nivel) => (
                             <TouchableOpacity key={nivel} onPress={() => setDificuldade(nivel as any)}>
@@ -68,7 +95,7 @@ export default function EnviarReceitas() {
                         ))}
                     </View>
 
-                    <Text style={[styles.desc, {bottom: 45}]}>Calorias</Text>
+                    <Text style={[styles.desc, { bottom: 45 }]}>Calorias</Text>
                     <TextInput
                         style={styles.caloriaInput}
                         keyboardType="numeric"
@@ -78,8 +105,8 @@ export default function EnviarReceitas() {
                         placeholderTextColor="#264129"
                     />
 
-                    <TouchableOpacity style={styles.botao}>
-                        <Text style={{ color: 'white', fontSize: 18, textAlign: 'center' }}>Salvar</Text>
+                    <TouchableOpacity style={styles.botao} onPress={enviarReceita}>
+                        <Text style={{ color: 'white', fontSize: 18, textAlign: 'center' }}>Enviar</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -104,7 +131,7 @@ const styles = StyleSheet.create({
     },
     conteudo: {
         paddingHorizontal: 16,
-//        bottom: 50,
+        //        bottom: 50,
     },
     image: {
         width: '100%',

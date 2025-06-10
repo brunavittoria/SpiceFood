@@ -9,8 +9,9 @@ import React from 'react';
 import User from './User';
 import Login from './Login';
 import EditUser from './EditUser';
-import AdicionarReceitas from './AdicionarReceitas';
+import AdicionarReceitas from './EditarReceita';
 import EnviarReceitas from './EnviarReceita';
+import EditarReceita from './EditarReceita';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -24,7 +25,6 @@ export default function App() {
     'Mulish': require('../assets/fonts/Mulish.ttf'),
     'Quicksand': require('../assets/fonts/Quicksand.ttf'),
   });
-
 
   useEffect(() => {
     if (loaded || error) {

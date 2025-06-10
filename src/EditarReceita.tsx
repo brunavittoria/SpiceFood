@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
  
-export default function AdicionarReceitas() {
+export default function EditarReceita() {
   const [tempo, setTempo] = useState(90);
   const [dificuldade, setDificuldade] = useState<'Facil' | 'Medio' | 'Dificil'>('Facil');
   const [calorias, setCalorias] = useState('1000');
