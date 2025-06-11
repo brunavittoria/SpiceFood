@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function CardRecipe({ id, title, description, imageURL }) {
   return (
@@ -7,6 +7,9 @@ export default function CardRecipe({ id, title, description, imageURL }) {
       <Image style={styles.img} source={{uri: imageURL}} />
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.txt}>{description}</Text>
+      <TouchableOpacity>
+        <Image source={require('../assets/icons/heart.png')} />
+      </TouchableOpacity>
     </View>
   );
 }

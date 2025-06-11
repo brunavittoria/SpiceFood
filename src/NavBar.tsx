@@ -3,6 +3,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import React from 'react';
 import Home from './Home';
 import User from './User';
+import EnviarReceita from './EnviarReceita';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -15,6 +16,13 @@ export default function NavBar({ setCurrentScreen, loggedUser }) {
           <Image source={require('../assets/icons/fork-spoon.png')} />
         </Pressable>
         <Text style={styles.txt}>Início</Text>
+      </View>
+
+      <View style={styles.navItem}>
+        <Pressable style={styles.icon} onPress={() => setCurrentScreen(<EnviarReceita loggedUser={loggedUser} setCurrentScreen={setCurrentScreen} />)}>
+          <Image source={require('../assets/icons/plus.png')} />
+        </Pressable>
+        <Text style={styles.txt}>Enviar Receita</Text>
       </View>
 
       <View style={styles.navItem}>
@@ -40,7 +48,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     alignItems: 'center',
     height: 80,
     width: '100%',

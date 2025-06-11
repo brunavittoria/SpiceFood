@@ -2,8 +2,9 @@ import { addDoc, collection } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, Alert, } from 'react-native';
 import { db } from './Firebase';
+import Home from './Home';
 
-export default function EnviarReceita({ loggedUser }) {
+export default function EnviarReceita({ loggedUser, setCurrentScreen }) {
     const [tempo, setTempo] = useState(90);
     const [dificuldade, setDificuldade] = useState<'Facil' | 'Medio' | 'Dificil'>('Facil');
     const [calorias, setCalorias] = useState('1000');
@@ -25,7 +26,7 @@ export default function EnviarReceita({ loggedUser }) {
                 time: tempo,
                 title: titulo
             })
-            .then(() => Alert.alert('Sucesso!', 'Receita enviada!'));
+                .then(() => Alert.alert('Sucesso!', 'Receita enviada!'));
         } catch (error) {
             Alert.alert('Erro!', String(error));
         }
@@ -34,6 +35,9 @@ export default function EnviarReceita({ loggedUser }) {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
+                <TouchableOpacity onPress={() => setCurrentScreen(<Home />)} style={styles.voltarBtn}>
+                    <Image source={require('../assets/icons/arrow.png')} style={{ height: 28, width: 28 }} />
+                </TouchableOpacity>
                 <Text style={styles.Titulo}>Enviar Receita</Text>
             </View>
             <ScrollView>
@@ -131,11 +135,10 @@ const styles = StyleSheet.create({
     },
     conteudo: {
         paddingHorizontal: 16,
-        //        bottom: 50,
     },
     image: {
         width: '100%',
-        height: 140,
+        height: 200,
         borderRadius: 12,
         marginBottom: 50,
     },
@@ -153,7 +156,7 @@ const styles = StyleSheet.create({
     },
     input: {
         fontSize: 18,
-        borderBottomWidth: 1,
+        borderBottomWidth: 2,
         borderColor: '#406343',
         paddingVertical: 4,
         paddingHorizontal: 8,
@@ -182,7 +185,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     boxTempo: {
-        width: '85%',
+        width: '100%',
         alignSelf: 'center',
         flexDirection: 'row',
         justifyContent: 'center',
@@ -214,7 +217,12 @@ const styles = StyleSheet.create({
         paddingVertical: 14,
         borderRadius: 8,
         marginTop: 20,
-        marginBottom: 40,
         bottom: 60
     },
+    voltarBtn: {
+        position: 'absolute',
+        zIndex: 1,
+        top: 30,
+        left: 10
+    }
 });
