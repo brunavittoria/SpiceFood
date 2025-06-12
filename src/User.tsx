@@ -4,31 +4,31 @@ import React from 'react';
 export default function User({ loggedUser }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.name}>Bem Vindo, {loggedUser}</Text>
+      <Text style={styles.name}>Bem Vindo(a), {loggedUser.name}</Text>
       <View style={styles.optionsBox}>
         <View style={styles.option}>
           <Image source={require('../assets/icons/heart.png')} style={styles.icon} />
-          <Text>Favoritos</Text>
+          <Text style={styles.optionText}>Favoritos</Text>
         </View>
 
         <View style={styles.option}>
           <Image source={require('../assets/icons/notification.png')} style={styles.icon} />
-          <Text>Favoritos</Text>
+          <Text style={styles.optionText}>Favoritos</Text>
         </View>
 
         <View style={styles.option}>
           <Image source={require('../assets/icons/settings.png')} style={styles.icon} />
-          <Text>Configurações</Text>
+          <Text style={styles.optionText}>Configurações</Text>
         </View>
 
         <View style={styles.option}>
           <Image source={require('../assets/icons/trash.png')} style={styles.icon} />
-          <Text>Excluir Conta</Text>
+          <Text style={styles.optionText}>Excluir Conta</Text>
         </View>
 
         <View style={styles.option}>
           <Image source={require('../assets/icons/log-off.png')} style={styles.icon} />
-          <Text>Sair da Conta</Text>
+          <Text style={styles.optionText}>Sair da Conta</Text>
         </View>
       </View>
     </View>
@@ -41,9 +41,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#335637',
   },
   name: {
-    fontFamily: 'Mulish',
+    fontFamily: 'Mulish-Bold',
     fontSize: 36,
-    fontWeight: 'bold',
     color: '#ffffff',
     position: 'absolute',
     top: 150,
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
   },
   optionsBox: {
     position: 'absolute',
-    top: 350,
+    top: 300,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -62,11 +61,14 @@ const styles = StyleSheet.create({
     height: 450,
     backgroundColor: '#EFEAD9',
     borderWidth: 8,
-    borderColor: '#ffffff',
+    borderColor: '#fff',
     borderRadius: 40
   },
   option: {
     alignItems: 'center'
+  },
+  optionText: {
+    fontFamily: 'Mulish'
   },
   icon: {
     height: 42,

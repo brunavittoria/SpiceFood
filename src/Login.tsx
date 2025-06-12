@@ -12,7 +12,7 @@ export default function Login({ setCurrentScreen, setLoggedUser }) {
 
   const signIn = async () => {
     try {
-      const login = await signInWithEmailAndPassword(auth, email, pass);
+      const login = await signInWithEmailAndPassword(auth, email.toLocaleLowerCase(), pass);
 
       if (login) {
         const userRef = doc(collection(db, 'users'), email);
@@ -22,7 +22,7 @@ export default function Login({ setCurrentScreen, setLoggedUser }) {
           name: data.name,
           email: email,
         })
-        setCurrentScreen(<Home />);
+        setCurrentScreen('Home');
       }
     } catch (error) {
       Alert.alert('Erro!', String(error));
@@ -42,13 +42,12 @@ export default function Login({ setCurrentScreen, setLoggedUser }) {
           placeholderTextColor={'white'}
           keyboardType="email-address"
           maxLength={30}
-          onChangeText={(value) => setEmail(value)}
+          onChangeText={(value) => setEmail(value.toLocaleLowerCase())}
         />
         <TextInput
           style={styles.input}
           placeholder='Senha'
           placeholderTextColor={'white'}
-          keyboardType='number-pad'
           secureTextEntry={true}
           maxLength={6}
           onChangeText={(value) => setPass(value)}
@@ -59,7 +58,7 @@ export default function Login({ setCurrentScreen, setLoggedUser }) {
         <TouchableOpacity style={styles.convidadoBtn}>
           <Text style={styles.convidadoText}>Entrar como convidado</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.semContaBtn} onPress={() => setCurrentScreen(<SignUp setCurrentScreen={setCurrentScreen} setLoggedUser={setLoggedUser} />)}>
+        <TouchableOpacity style={styles.semContaBtn} onPress={() => setCurrentScreen('SignUp')}>
           <Text style={styles.semContaText}>Não tem uma conta? {'\n'} Cadastre-se aqui!</Text>
         </TouchableOpacity>
       </View>
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
   triangle: {
     position: 'absolute',
     top: -850,
-    left: '-78%',
+    alignSelf: 'center',
     height: 1000,
     width: 1000,
     backgroundColor: '#EFEAD9',
@@ -89,10 +88,10 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     fontSize: 24,
     color: 'white',
-    fontFamily: 'Mulish'
+    fontFamily: 'Mulish',
   },
   inputBox: {
-    marginTop: 100,
+    marginTop: 150,
   },
   entrarBtn: {
     top: 20,
@@ -100,12 +99,12 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   btnText: {
+    fontFamily: 'Mulish-Bold',
     fontSize: 24,
     marginTop: 10,
     marginBottom: 10,
     color: '#264129',
     textAlign: 'center',
-    fontWeight: 'bold'
   },
   convidadoBtn: {
     top: 100,
@@ -116,12 +115,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   convidadoText: {
-    fontWeight: 'bold',
+    fontFamily: 'Mulish',
     textAlign: 'center',
     fontSize: 20,
     color: 'white',
     margin: 10,
-    fontFamily: 'Mulish'
   },
   semContaBtn: {
     top: 120,
@@ -129,6 +127,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   semContaText: {
+    fontFamily: 'Mulish-Bold',
     fontSize: 20,
     textAlign: 'center',
     color: '#264129',
@@ -143,12 +142,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   spiceFood: {
+    fontFamily: 'Mulish-Bold',
     position: 'absolute',
     top: 210,
     alignSelf: 'center',
     zIndex: 1,
     fontSize: 32,
-    fontWeight: 'bold',
     color: '#264129',
   }
 });

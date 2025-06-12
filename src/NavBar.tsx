@@ -12,28 +12,28 @@ export default function NavBar({ setCurrentScreen, loggedUser }) {
     <View style={styles.navbar}>
 
       <View style={styles.navItem}>
-        <Pressable style={styles.icon} onPress={() => setCurrentScreen(<Home />)}>
+        <Pressable style={styles.icon} onPress={() => setCurrentScreen('Home')}>
           <Image source={require('../assets/icons/fork-spoon.png')} />
         </Pressable>
         <Text style={styles.txt}>Início</Text>
       </View>
 
       <View style={styles.navItem}>
-        <Pressable style={styles.icon} onPress={() => setCurrentScreen(<EnviarReceita loggedUser={loggedUser} setCurrentScreen={setCurrentScreen} />)}>
+        <Pressable style={styles.icon} onPress={() => setCurrentScreen('EnviarReceita')}>
           <Image source={require('../assets/icons/plus.png')} />
         </Pressable>
         <Text style={styles.txt}>Enviar Receita</Text>
       </View>
 
       <View style={styles.navItem}>
-        <Pressable style={styles.icon} onPress={() => setCurrentScreen(<></>)}>
+        <Pressable style={styles.icon} onPress={() => setCurrentScreen('')}>
           <Image source={require('../assets/icons/recipes-book.png')} />
         </Pressable>
         <Text style={styles.txt}>Suas Receitas</Text>
       </View>
 
       <View style={styles.navItem}>
-        <Pressable style={styles.icon} onPress={() => setCurrentScreen(<User loggedUser={loggedUser.name} />)}>
+        <Pressable style={styles.icon} onPress={() => setCurrentScreen('User')}>
           <Image source={require('../assets/icons/profile.png')} />
         </Pressable>
         <Text style={styles.txt}>Conta</Text>
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
   navbar: {
     position: 'absolute',
     bottom: 0,
+    zIndex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -67,6 +68,5 @@ const styles = StyleSheet.create({
   },
   txt: {
     fontFamily: 'Quicksand',
-    fontWeight: 'bold'
   }
 });

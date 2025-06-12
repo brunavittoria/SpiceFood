@@ -18,8 +18,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     textAlign: 'center',
-    width: 180,
-    padding: 10,
+    width: 160,
   },
   img: {
     width: 150,
@@ -27,11 +26,12 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   title: {
+    fontFamily: 'Mulish-Bold',
     fontSize: 18,
-    fontWeight: 'bold',
     textAlign: 'center'
   },
   txt: {
+    fontFamily: 'Mulish',
     textAlign: 'center'
   }
 });

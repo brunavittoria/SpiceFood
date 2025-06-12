@@ -50,17 +50,6 @@ export default function Home() {
 
       <ScrollView contentContainerStyle={styles.cardsBox}>
         {recipes.map((recipe, index) => <CardRecipe key={index} id={recipe.id} title={recipe.title} description={recipe.description} imageURL={recipe.imageURL} />)}
-
-        {/* <CardRecipe title='Pizza de Queijo' description='Feita com muito Amor e Carinho' />
-        <CardRecipe title='Sorvete Limão e canela' description='Com um toque de canela' />
-        <CardRecipe title='Pizza de Queijo' description='Feita com muito Amor e Carinho' />
-        <CardRecipe title='Sorvete Limão e canela' description='Com um toque de canela' />
-        <CardRecipe title='Pizza de Queijo' description='Feita com muito Amor e Carinho' />
-        <CardRecipe title='Sorvete Limão e canela' description='Com um toque de canela' />
-        <CardRecipe title='Pizza de Queijo' description='Feita com muito Amor e Carinho' />
-        <CardRecipe title='Sorvete Limão e canela' description='Com um toque de canela' />
-        <CardRecipe title='Pizza de Queijo' description='Feita com muito Amor e Carinho' />
-        <CardRecipe title='Sorvete Limão e canela' description='Com um toque de canela' /> */}
       </ScrollView>
     </View>
   );
@@ -68,7 +57,7 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20
+    padding: 20,
   },
   searchBox: {
     flexDirection: 'row',
@@ -79,7 +68,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Mulish',
   },
   title: {
-    fontWeight: 'bold',
+    fontFamily: 'Mulish-Bold',
     fontSize: 28
   },
   logo: {
@@ -101,6 +90,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexWrap: 'wrap',
     gap: 10,
-    paddingBottom: 100
+    paddingBottom: '100%'
   }
 });

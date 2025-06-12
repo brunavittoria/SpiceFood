@@ -52,7 +52,6 @@ export default function SignUp({ setCurrentScreen, setLoggedUser }) {
           style={styles.input}
           placeholder='Senha'
           placeholderTextColor={'white'}
-          keyboardType='number-pad'
           secureTextEntry={true}
           maxLength={12}
           onChangeText={(value) => setPass(value)}
@@ -61,7 +60,7 @@ export default function SignUp({ setCurrentScreen, setLoggedUser }) {
           <Text style={styles.btnText}>Cadastrar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.semContaBtn}>
-          <Text style={styles.semContaText} onPress={() => setCurrentScreen(<Login setCurrentScreen={setCurrentScreen} setLoggedUser={setLoggedUser} />)}>Já tem uma conta? {'\n'} Entre aqui.</Text>
+          <Text style={styles.semContaText} onPress={() => setCurrentScreen('Login')}>Já tem uma conta? {'\n'} Entre aqui.</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
   triangle: {
     position: 'absolute',
     top: -850,
-    left: '-78%',
+    alignSelf: 'center',
     height: 1000,
     width: 1000,
     backgroundColor: '#EFEAD9',
@@ -90,7 +89,7 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     fontSize: 24,
     color: 'white',
-    fontFamily: 'Mulish'
+    fontFamily: 'Mulish',
   },
   inputBox: {
     marginTop: 100,
@@ -101,12 +100,12 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   btnText: {
+    fontFamily: 'Mulish-Bold',
     fontSize: 24,
     marginTop: 10,
     marginBottom: 10,
     color: '#264129',
     textAlign: 'center',
-    fontWeight: 'bold'
   },
   semContaBtn: {
     top: 120,
@@ -114,6 +113,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   semContaText: {
+    fontFamily: 'Mulish-Bold',
     fontSize: 20,
     textAlign: 'center',
     color: '#264129',
@@ -128,12 +128,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   spiceFood: {
+    fontFamily: 'Mulish-Bold',
     position: 'absolute',
     top: 210,
     alignSelf: 'center',
     zIndex: 1,
     fontSize: 32,
-    fontWeight: 'bold',
     color: '#264129',
   }
 });

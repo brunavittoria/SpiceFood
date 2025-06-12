@@ -7,7 +7,7 @@ import Home from './Home';
 export default function EnviarReceita({ loggedUser, setCurrentScreen }) {
     const [tempo, setTempo] = useState(90);
     const [dificuldade, setDificuldade] = useState<'Facil' | 'Medio' | 'Dificil'>('Facil');
-    const [calorias, setCalorias] = useState('1000');
+    const [calorias, setCalorias] = useState('');
     const [ingredientes, setIngredientes] = useState('');
     const [passo, setPasso] = useState('');
     const [titulo, setTitulo] = useState('');
@@ -35,9 +35,6 @@ export default function EnviarReceita({ loggedUser, setCurrentScreen }) {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={() => setCurrentScreen(<Home />)} style={styles.voltarBtn}>
-                    <Image source={require('../assets/icons/arrow.png')} style={{ height: 28, width: 28 }} />
-                </TouchableOpacity>
                 <Text style={styles.Titulo}>Enviar Receita</Text>
             </View>
             <ScrollView>
@@ -82,7 +79,7 @@ export default function EnviarReceita({ loggedUser, setCurrentScreen }) {
                         <TouchableOpacity onPress={() => setTempo(Math.max(0, tempo - 5))}>
                             <Text style={styles.tempoBtn}>-</Text>
                         </TouchableOpacity>
-                        <Text>{tempo} minutos</Text>
+                        <Text style={{fontFamily: 'Mulish', fontSize: 20}}>{tempo} minutos</Text>
                         <TouchableOpacity onPress={() => setTempo(tempo + 5)}>
                             <Text style={styles.tempoBtn}>+</Text>
                         </TouchableOpacity>
@@ -90,9 +87,9 @@ export default function EnviarReceita({ loggedUser, setCurrentScreen }) {
 
                     <Text style={[styles.desc, { bottom: 20 }]}>Dificuldade</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20, bottom: 20 }}>
-                        {['Facil', 'Medio', 'Dificil'].map((nivel) => (
+                        {['Fácil', 'Médio', 'Difícil'].map((nivel) => (
                             <TouchableOpacity key={nivel} onPress={() => setDificuldade(nivel as any)}>
-                                <Text style={{ fontSize: 25, color: 'black' }}>
+                                <Text style={{ fontFamily: 'Mulish', fontSize: 25, color: 'black' }}>
                                     {dificuldade === nivel ? '●' : '○'} {nivel}
                                 </Text>
                             </TouchableOpacity>
@@ -110,7 +107,7 @@ export default function EnviarReceita({ loggedUser, setCurrentScreen }) {
                     />
 
                     <TouchableOpacity style={styles.botao} onPress={enviarReceita}>
-                        <Text style={{ color: 'white', fontSize: 18, textAlign: 'center' }}>Enviar</Text>
+                        <Text style={styles.botaoTxt}>Enviar</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
@@ -128,6 +125,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     Titulo: {
+        fontFamily: 'Mulish-Bold',
         fontSize: 22,
         color: '#000000',
         textAlign: 'center',
@@ -148,6 +146,7 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     desc: {
+        fontFamily: 'Mulish-Bold',
         fontSize: 22,
         textAlign: 'center',
         marginTop: 25,
@@ -155,6 +154,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     input: {
+        fontFamily: 'Mulish',
         fontSize: 18,
         borderBottomWidth: 2,
         borderColor: '#406343',
@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
         bottom: 25
     },
     texto: {
+        fontFamily: 'Mulish',
         fontSize: 14,
         marginBottom: 4,
         color: '#848484',
@@ -202,27 +203,30 @@ const styles = StyleSheet.create({
         color: '#264129',
     },
     caloriaInput: {
+        fontFamily: 'Mulish',
         textAlign: 'center',
+        alignSelf: 'center',
         fontSize: 18,
         color: '#264129',
+        width: '50%',
         marginBottom: 16,
-        borderBottomWidth: 1,
+        borderBottomWidth: 2,
         borderColor: '#264129',
         paddingBottom: 4,
-        marginHorizontal: 100,
         bottom: 50,
     },
     botao: {
+        fontFamily: 'Mulish',
         backgroundColor: '#264129',
         paddingVertical: 14,
         borderRadius: 8,
-        marginTop: 20,
-        bottom: 60
+        bottom: 60,
+        marginBlock: 30
     },
-    voltarBtn: {
-        position: 'absolute',
-        zIndex: 1,
-        top: 30,
-        left: 10
+    botaoTxt: {
+        fontFamily: 'Mulish-Bold',
+        fontSize: 18,
+        textAlign: 'center',
+        color: 'white',
     }
 });
