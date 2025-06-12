@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexWrap: 'wrap',
     gap: 10,
+    paddingTop: 10,
     paddingBottom: '100%'
   }
 });

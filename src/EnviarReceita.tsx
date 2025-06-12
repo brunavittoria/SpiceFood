@@ -2,24 +2,63 @@ import { addDoc, collection } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, Alert, } from 'react-native';
 import { db } from './Firebase';
+import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
 import Home from './Home';
 
-export default function EnviarReceita({ loggedUser, setCurrentScreen }) {
-    const [tempo, setTempo] = useState(90);
-    const [dificuldade, setDificuldade] = useState<'Facil' | 'Medio' | 'Dificil'>('Facil');
+export default function EnviarReceita({ loggedUser }) {
+    const [tempo, setTempo] = useState(0);
+    const [dificuldade, setDificuldade] = useState('');
     const [calorias, setCalorias] = useState('');
     const [ingredientes, setIngredientes] = useState('');
     const [passo, setPasso] = useState('');
     const [titulo, setTitulo] = useState('');
     const [descricao, setDescricao] = useState('');
+    const [image, setImage] = useState(null);
+
+    const pegarImagem = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ['images'],
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1,
+        });
+
+        if (!result.canceled) {
+            setImage(result.assets[0].uri);
+        }
+    };
 
     const enviarReceita = async () => {
+        if (!tempo || !dificuldade || !calorias || !ingredientes || !passo || !titulo || !descricao) {
+            Alert.alert('Oops!', 'Preencha todas as informações!');
+            return;
+        }
+
+        const apiKey = '6ec8b6a7805aa50394bff8215dd76894';
+        const formData = new FormData();
+        const base64Image = await FileSystem.readAsStringAsync(image, {
+            encoding: FileSystem.EncodingType.Base64,
+        });
+        let uploadedImgURL = '';
+
+        formData.append('image', base64Image);
+
         try {
+            await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`,
+                {
+                    method: 'POST',
+                    body: formData,
+                }
+            )
+                .then((response) => response.json())
+                .then((response) => uploadedImgURL = response.data.display_url)
+
             await addDoc(collection(db, 'recipes'), {
                 description: descricao,
                 difficulty: dificuldade,
                 howToDo: passo,
-                imgURL: '',
+                imageURL: uploadedImgURL,
                 ingredients: ingredientes,
                 kcal: calorias,
                 owner: loggedUser,
@@ -40,7 +79,10 @@ export default function EnviarReceita({ loggedUser, setCurrentScreen }) {
             <ScrollView>
                 <View style={styles.conteudo}>
                     <Text style={styles.desc}>Imagem</Text>
-                    <Image source={require('../assets/cheese-pizza.jpg')} style={styles.image} />
+                    <TouchableOpacity style={styles.imgBotao} onPress={pegarImagem}>
+                        <Text style={styles.imgBotaoTxt}>Selecione uma imagem aqui!</Text>
+                    </TouchableOpacity>
+                    {image === null ? <Image source={require('../assets/icons/pic-placeholder.png')} style={styles.image} /> : <Image source={{ uri: image }} style={styles.image} />}
 
                     <Text style={[styles.Titulo, { bottom: 30 }]}>Título</Text>
                     <TextInput
@@ -79,7 +121,7 @@ export default function EnviarReceita({ loggedUser, setCurrentScreen }) {
                         <TouchableOpacity onPress={() => setTempo(Math.max(0, tempo - 5))}>
                             <Text style={styles.tempoBtn}>-</Text>
                         </TouchableOpacity>
-                        <Text style={{fontFamily: 'Mulish', fontSize: 20}}>{tempo} minutos</Text>
+                        <Text style={{ fontFamily: 'Mulish', fontSize: 20 }}>{tempo} minutos</Text>
                         <TouchableOpacity onPress={() => setTempo(tempo + 5)}>
                             <Text style={styles.tempoBtn}>+</Text>
                         </TouchableOpacity>
@@ -119,6 +161,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#EFEAD9',
+        paddingBottom: 20
     },
     header: {
         paddingTop: 50,
@@ -135,7 +178,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     image: {
-        width: '100%',
+        alignSelf: 'center',
+        width: 200,
         height: 200,
         borderRadius: 12,
         marginBottom: 50,
@@ -228,5 +272,14 @@ const styles = StyleSheet.create({
         fontSize: 18,
         textAlign: 'center',
         color: 'white',
+    },
+    imgBotao: {
+        backgroundColor: '#264129',
+        padding: 10,
+        borderRadius: 10,
+        marginBottom: 5
+    },
+    imgBotaoTxt: {
+        color: '#fff'
     }
 });

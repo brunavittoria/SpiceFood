@@ -50,7 +50,7 @@ export default function App() {
     } else if (currentScreen === 'User') {
       setCurrentScreenComponent(<User loggedUser={loggedUser} />);
     } else if (currentScreen === 'EnviarReceita') {
-      setCurrentScreenComponent(<EnviarReceitas setCurrentScreen={setCurrentScreen} loggedUser={loggedUser} />);
+      setCurrentScreenComponent(<EnviarReceitas loggedUser={loggedUser} />);
     }
   }, [currentScreen]);
 

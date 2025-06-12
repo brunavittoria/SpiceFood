@@ -51,8 +51,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    height: 80,
     width: '100%',
+    paddingTop: 10,
+    paddingBottom: 20,
     backgroundColor: '#D7D3C3'
   },
   navItem: {
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
     borderRadius: 50
   },
   txt: {
-    fontFamily: 'Quicksand',
+    fontFamily: 'Quicksand-Bold',
+    fontSize: 14
   }
 });
