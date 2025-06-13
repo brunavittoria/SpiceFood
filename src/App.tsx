@@ -46,12 +46,13 @@ export default function App() {
     } else if (currentScreen === 'SignUp') {
       setCurrentScreenComponent(<SignUp setCurrentScreen={setCurrentScreen} setLoggedUser={setLoggedUser} />);
     } else if (currentScreen === 'Home') {
-      setCurrentScreenComponent(<Home />);
+      setCurrentScreenComponent(<Home setCurrentScreen={setCurrentScreen} setCurrentScreenComponent={setCurrentScreenComponent} />);
     } else if (currentScreen === 'User') {
       setCurrentScreenComponent(<User loggedUser={loggedUser} />);
     } else if (currentScreen === 'EnviarReceita') {
       setCurrentScreenComponent(<EnviarReceitas loggedUser={loggedUser} />);
     }
+
   }, [currentScreen]);
 
   return (

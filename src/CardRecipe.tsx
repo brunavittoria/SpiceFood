@@ -1,12 +1,15 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import RecipePage from './RecipePage';
 
-export default function CardRecipe({ id, title, description, imageURL }) {
+export default function CardRecipe({ id, title, description, owner, imageURL, difficulty, time, kcal, ingredients, howToDo, setCurrentScreen, setCurrentScreenComponent }) {
   return (
     <View style={styles.container}>
-      <Image style={styles.img} source={{uri: imageURL}} />
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.txt}>{description}</Text>
+      <TouchableOpacity onPress={() => { setCurrentScreen('RecipePage'); setCurrentScreenComponent(<RecipePage title={title} description={description} owner={owner} imageURL={imageURL} difficulty={difficulty} time={time} kcal={kcal} ingredients={ingredients} howToDo={howToDo} />) }}>
+        <Image style={styles.img} source={{ uri: imageURL }} />
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.txt}>{description}</Text>
+      </TouchableOpacity>
       <TouchableOpacity>
         <Image source={require('../assets/icons/heart.png')} />
       </TouchableOpacity>

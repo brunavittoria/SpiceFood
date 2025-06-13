@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import React from 'react';
 import Home from './Home';
@@ -12,30 +12,30 @@ export default function NavBar({ setCurrentScreen, loggedUser }) {
     <View style={styles.navbar}>
 
       <View style={styles.navItem}>
-        <Pressable style={styles.icon} onPress={() => setCurrentScreen('Home')}>
+        <TouchableOpacity style={styles.icon} onPress={() => setCurrentScreen('Home')}>
           <Image source={require('../assets/icons/fork-spoon.png')} />
-        </Pressable>
+        </TouchableOpacity>
         <Text style={styles.txt}>Início</Text>
       </View>
 
       <View style={styles.navItem}>
-        <Pressable style={styles.icon} onPress={() => setCurrentScreen('EnviarReceita')}>
+        <TouchableOpacity style={styles.icon} onPress={() => setCurrentScreen('EnviarReceita')}>
           <Image source={require('../assets/icons/plus.png')} />
-        </Pressable>
+        </TouchableOpacity>
         <Text style={styles.txt}>Enviar Receita</Text>
       </View>
 
       <View style={styles.navItem}>
-        <Pressable style={styles.icon} onPress={() => setCurrentScreen('')}>
+        <TouchableOpacity style={styles.icon} onPress={() => setCurrentScreen('')}>
           <Image source={require('../assets/icons/recipes-book.png')} />
-        </Pressable>
+        </TouchableOpacity>
         <Text style={styles.txt}>Suas Receitas</Text>
       </View>
 
       <View style={styles.navItem}>
-        <Pressable style={styles.icon} onPress={() => setCurrentScreen('User')}>
+        <TouchableOpacity style={styles.icon} onPress={() => setCurrentScreen('User')}>
           <Image source={require('../assets/icons/profile.png')} />
-        </Pressable>
+        </TouchableOpacity>
         <Text style={styles.txt}>Conta</Text>
       </View>
 
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     zIndex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     width: '100%',
     paddingTop: 10,
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
   },
   txt: {
     fontFamily: 'Quicksand-Bold',
-    fontSize: 14
+    fontSize: 14,
+    padding: 5
   }
 });

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from './Firebase';
 
-export default function Home() {
+export default function Home({ setCurrentScreen, setCurrentScreenComponent }) {
   const [recipes, setRecipes] = useState([]);
 
   // Gets data when app loads and everytime database changes
@@ -49,7 +49,7 @@ export default function Home() {
       </View>
 
       <ScrollView contentContainerStyle={styles.cardsBox}>
-        {recipes.map((recipe, index) => <CardRecipe key={index} id={recipe.id} title={recipe.title} description={recipe.description} imageURL={recipe.imageURL} />)}
+        {recipes.map((recipe, index) => <CardRecipe key={index} id={recipe.id} title={recipe.title} description={recipe.description} owner={recipe.owner} imageURL={recipe.imageURL} difficulty={recipe.difficulty} time={recipe.time} kcal={recipe.kcal} ingredients={recipe.ingredients} howToDo={recipe.howToDo} setCurrentScreen={setCurrentScreen} setCurrentScreenComponent={setCurrentScreenComponent} />)}
       </ScrollView>
     </View>
   );
