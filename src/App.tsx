@@ -48,7 +48,7 @@ export default function App() {
     } else if (currentScreen === 'Home') {
       setCurrentScreenComponent(<Home setCurrentScreen={setCurrentScreen} setCurrentScreenComponent={setCurrentScreenComponent} />);
     } else if (currentScreen === 'User') {
-      setCurrentScreenComponent(<User loggedUser={loggedUser} />);
+      setCurrentScreenComponent(<User setCurrentScreen={setCurrentScreen} loggedUser={loggedUser} />);
     } else if (currentScreen === 'EnviarReceita') {
       setCurrentScreenComponent(<EnviarReceitas loggedUser={loggedUser} />);
     }
