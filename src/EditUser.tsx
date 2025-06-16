@@ -1,41 +1,57 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert, } from 'react-native';
+import React, { useState } from 'react';
+import { auth, db } from './Firebase';
+import { doc, updateDoc } from 'firebase/firestore';
+import { getAuth, updatePassword } from 'firebase/auth';
+import firebase from 'firebase/compat/app';
 
-export default function EditUser() {
+export default function EditUser({ loggedUser }) {
+  const [name, setName] = useState('');
+  // const [pass, setPass] = useState('');
+
+  const updateData = async () => {
+    if (name) {
+      const docRef = doc(db, 'users', loggedUser.email);
+
+      try {
+        await updateDoc(docRef, {
+          name: name,
+        })
+          .then(() => Alert.alert('Sucesso!', 'Informações atualizadas! Você deve reentrar para a alteração entrar em vigor.'))
+
+      } catch (error) {
+        alert(error);
+      }
+    } else {
+      alert('Preencha todas as informações!');
+    }
+  }
+
   return (
     <View style={styles.container}>
-        <View style={styles.header}>
-            <Image source={require('../assets/icons/arrow.png')} style={styles.voltarImg} />
-            <Text style={styles.title}>Editar</Text>
-        </View>
-        <View style={styles.inputBox}>
-            <TextInput
-                style={styles.input}
-                placeholder='Nome'
-                placeholderTextColor={'#264129'}
-                maxLength={30}        
-            />
-            <TextInput
-                style={styles.input}
-                placeholder='Email'
-                placeholderTextColor={'#264129'}
-                keyboardType="email-address"
-                maxLength={30}        
-            />
-            <TextInput
-            style={styles.input}
-            placeholder='Senha'
-            placeholderTextColor={'#264129'}
-            keyboardType='number-pad'
-            secureTextEntry={true}
-            maxLength={10}
-            />
-        </View>
-        <View style={styles.btnBox}>
-            <TouchableOpacity style={styles.entrarBtn}>
-                <Text style={styles.btnText}>Salvar</Text>
-            </TouchableOpacity>
-        </View>
+      <View style={styles.header}>
+        <Text style={styles.title}>Editar dados</Text>
+      </View>
+      <View style={styles.inputBox}>
+        <TextInput
+          style={styles.input}
+          placeholder='Nome'
+          placeholderTextColor={'#264129'}
+          onChangeText={(value) => setName(value)}
+        />
+        {/* <TextInput
+          style={styles.input}
+          placeholder='Senha'
+          placeholderTextColor={'#264129'}
+          secureTextEntry={true}
+          onChangeText={(value) => setPass(value)}
+        /> */}
+      </View>
+      <View style={styles.btnBox}>
+        <TouchableOpacity style={styles.entrarBtn} onPress={updateData}>
+          <Text style={styles.btnText}>Salvar</Text>
+        </TouchableOpacity>
+      </View>
 
     </View>
   );
@@ -51,15 +67,14 @@ const styles = StyleSheet.create({
   title: {
     color: 'black',
     fontSize: 36,
-    fontFamily: 'bold',
-    left: 115
+    fontFamily: 'Mulish-Bold',
   },
   header: {
-    alignItems: 'center',
+    justifyContent: 'center',
     top: -200,
     flexDirection: 'row',
   },
-   input: {
+  input: {
     padding: 20,
     borderBottomWidth: 2,
     borderColor: '#264129',
@@ -67,28 +82,24 @@ const styles = StyleSheet.create({
     color: '#264129',
     fontFamily: 'Mulish'
   },
-   inputBox: {
-   top: -200,
-   marginTop: 100,
+  inputBox: {
+    top: -200,
+    marginTop: 100,
   },
-    entrarBtn: {
-    top: 20 ,
+  entrarBtn: {
+    top: 20,
     backgroundColor: '#264129',
     borderRadius: 10
   },
-    btnText: {
+  btnText: {
+    fontFamily: 'Mulish-Bold',
     fontSize: 24,
     marginTop: 10,
     marginBottom: 10,
     color: 'white',
     textAlign: 'center',
-    fontWeight: 'bold'
   },
   btnBox: {
     top: -150,
   },
-  voltarImg: {
-    height: 30,
-    width: 30
-  }
 });

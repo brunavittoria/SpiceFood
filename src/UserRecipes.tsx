@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from './Firebase';
 
-export default function Home({ setCurrentScreen, setCurrentScreenComponent }) {
+export default function UserRecipes({ loggedUser, setCurrentScreen, setCurrentScreenComponent }) {
   const [recipes, setRecipes] = useState([]);
 
   // Gets data when app loads and everytime database changes
@@ -16,18 +16,20 @@ export default function Home({ setCurrentScreen, setCurrentScreenComponent }) {
         let list = [];
 
         snapshot.forEach((doc) => {
-          list.push({
-            id: doc.id,
-            title: doc.data().title,
-            description: doc.data().description,
-            owner: doc.data().owner,
-            imageURL: doc.data().imageURL,
-            difficulty: doc.data().difficult,
-            time: doc.data().time,
-            kcal: doc.data().kcal,
-            ingredients: doc.data().ingredients,
-            howToDo: doc.data().howToDo,
-          });
+          if (doc.data().owner.email === loggedUser.email) {
+            list.push({
+              id: doc.id,
+              title: doc.data().title,
+              description: doc.data().description,
+              owner: doc.data().owner,
+              imageURL: doc.data().imageURL,
+              difficulty: doc.data().difficult,
+              time: doc.data().time,
+              kcal: doc.data().kcal,
+              ingredients: doc.data().ingredients,
+              howToDo: doc.data().howToDo,
+            });
+          }
         });
 
         setRecipes(list);
@@ -38,18 +40,12 @@ export default function Home({ setCurrentScreen, setCurrentScreenComponent }) {
   return (
     <View style={styles.container}>
       <View style={styles.searchBox}>
-        <Text style={[styles.txt, styles.title]}>Receitas</Text>
+        <Text style={[styles.txt, styles.title]}>SuasReceitas</Text>
         <Image style={styles.logo} source={require('../assets/icons/logo-app.png')} />
       </View>
 
-      {/* Configure btn for back end */}
-      <View>
-        <TextInput style={styles.input} placeholder='Pesquisar' />
-        <Image style={styles.inputIcon} source={require('../assets/icons/search.png')} />
-      </View>
-
       <ScrollView contentContainerStyle={styles.cardsBox}>
-        {recipes.map((recipe, index) => <CardRecipe key={index} id={recipe.id} title={recipe.title} description={recipe.description} owner={recipe.owner} imageURL={recipe.imageURL} difficulty={recipe.difficulty} time={recipe.time} kcal={recipe.kcal} ingredients={recipe.ingredients} howToDo={recipe.howToDo} setCurrentScreen={setCurrentScreen} setCurrentScreenComponent={setCurrentScreenComponent} deleteBtn={false} />)}
+        {recipes.map((recipe, index) => <CardRecipe key={index} id={recipe.id} title={recipe.title} description={recipe.description} owner={recipe.owner} imageURL={recipe.imageURL} difficulty={recipe.difficulty} time={recipe.time} kcal={recipe.kcal} ingredients={recipe.ingredients} howToDo={recipe.howToDo} setCurrentScreen={setCurrentScreen} setCurrentScreenComponent={setCurrentScreenComponent} deleteBtn={true} />)}
       </ScrollView>
     </View>
   );

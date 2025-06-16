@@ -41,7 +41,6 @@ export default function Login({ setCurrentScreen, setLoggedUser }) {
           placeholder='Email'
           placeholderTextColor={'white'}
           keyboardType="email-address"
-          maxLength={30}
           onChangeText={(value) => setEmail(value.toLocaleLowerCase())}
         />
         <TextInput
@@ -49,7 +48,6 @@ export default function Login({ setCurrentScreen, setLoggedUser }) {
           placeholder='Senha'
           placeholderTextColor={'white'}
           secureTextEntry={true}
-          maxLength={6}
           onChangeText={(value) => setPass(value)}
         />
         <TouchableOpacity style={styles.entrarBtn} onPress={signIn}>

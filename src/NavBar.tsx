@@ -26,7 +26,7 @@ export default function NavBar({ setCurrentScreen, loggedUser }) {
       </View>
 
       <View style={styles.navItem}>
-        <TouchableOpacity style={styles.icon} onPress={() => setCurrentScreen('')}>
+        <TouchableOpacity style={styles.icon} onPress={() => setCurrentScreen('UserRecipes')}>
           <Image source={require('../assets/icons/recipes-book.png')} />
         </TouchableOpacity>
         <Text style={styles.txt}>Suas Receitas</Text>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   txt: {
     fontFamily: 'Quicksand-Bold',
-    fontSize: 14,
+    fontSize: 12,
     padding: 5
   }
 });

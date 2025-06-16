@@ -1,5 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
+import EditUser from './EditUser';
 
 export default function User({ setCurrentScreen, loggedUser }) {
   const logOut = () => {
@@ -10,7 +11,7 @@ export default function User({ setCurrentScreen, loggedUser }) {
     <View style={styles.container}>
       <Text style={styles.name}>Bem Vindo(a), {loggedUser.name}</Text>
       <View style={styles.optionsBox}>
-        <TouchableOpacity style={styles.option}>
+        {/* <TouchableOpacity style={styles.option}>
           <Image source={require('../assets/icons/heart.png')} style={styles.icon} />
           <Text style={styles.optionText}>Favoritos</Text>
         </TouchableOpacity>
@@ -18,6 +19,15 @@ export default function User({ setCurrentScreen, loggedUser }) {
         <TouchableOpacity style={styles.option}>
           <Image source={require('../assets/icons/settings.png')} style={styles.icon} />
           <Text style={styles.optionText}>Configurações</Text>
+          </TouchableOpacity> */}
+        <TouchableOpacity style={styles.option} onPress={logOut}>
+          <Image source={require('../assets/icons/log-off.png')} style={styles.icon} />
+          <Text style={styles.optionText}>Sair da Conta</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.option} onPress={() => setCurrentScreen('EditUser')}>
+          <Image source={require('../assets/icons/manage-accounts.png')} style={styles.icon} />
+          <Text style={styles.optionText}>Alterar dados</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.option}>
@@ -25,10 +35,6 @@ export default function User({ setCurrentScreen, loggedUser }) {
           <Text style={styles.optionText}>Excluir Conta</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.option} onPress={logOut}>
-          <Image source={require('../assets/icons/log-off.png')} style={styles.icon} />
-          <Text style={styles.optionText}>Sair da Conta</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -52,7 +58,7 @@ const styles = StyleSheet.create({
   },
   optionsBox: {
     position: 'absolute',
-    top: 300,
+    top: 275,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'space-evenly',

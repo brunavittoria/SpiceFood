@@ -1,8 +1,29 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import RecipePage from './RecipePage';
+import { db } from './Firebase';
+import { deleteDoc, doc } from 'firebase/firestore';
 
-export default function CardRecipe({ id, title, description, owner, imageURL, difficulty, time, kcal, ingredients, howToDo, setCurrentScreen, setCurrentScreenComponent }) {
+export default function CardRecipe({ id, title, description, owner, imageURL, difficulty, time, kcal, ingredients, howToDo, setCurrentScreen, setCurrentScreenComponent, deleteBtn }) {
+  const confirmDeletion = () => {
+    Alert.alert('Tem Certeza?', 'Deletar a receita é irreversível!', [
+      {
+        text: 'Cancelar',
+        style: 'cancel'
+      },
+      {
+        text: 'DELETAR',
+        style: 'destructive',
+        onPress: deleteRecipe
+      }
+    ]);
+  };
+
+  const deleteRecipe = () => {
+    const docRef = doc(db, 'recipes', id);
+    deleteDoc(docRef);
+  }
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => { setCurrentScreen('RecipePage'); setCurrentScreenComponent(<RecipePage title={title} description={description} owner={owner} imageURL={imageURL} difficulty={difficulty} time={time} kcal={kcal} ingredients={ingredients} howToDo={howToDo} />) }}>
@@ -10,9 +31,15 @@ export default function CardRecipe({ id, title, description, owner, imageURL, di
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.txt}>{description}</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      {
+        deleteBtn &&
+        <TouchableOpacity onPress={confirmDeletion}>
+          <Image style={{ height: 42, width: 42 }} source={require('../assets/icons/delete.png')} />
+        </TouchableOpacity>
+      }
+      {/* <TouchableOpacity>
         <Image source={require('../assets/icons/heart.png')} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }

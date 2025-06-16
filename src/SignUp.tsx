@@ -37,7 +37,6 @@ export default function SignUp({ setCurrentScreen, setLoggedUser }) {
           style={styles.input}
           placeholder='Nome'
           placeholderTextColor={'white'}
-          maxLength={30}
           onChangeText={(value) => setName(value)}
         />
         <TextInput
@@ -45,7 +44,6 @@ export default function SignUp({ setCurrentScreen, setLoggedUser }) {
           placeholder='Email'
           placeholderTextColor={'white'}
           keyboardType="email-address"
-          maxLength={30}
           onChangeText={(value) => setEmail(value)}
         />
         <TextInput
@@ -53,7 +51,6 @@ export default function SignUp({ setCurrentScreen, setLoggedUser }) {
           placeholder='Senha'
           placeholderTextColor={'white'}
           secureTextEntry={true}
-          maxLength={12}
           onChangeText={(value) => setPass(value)}
         />
         <TouchableOpacity style={styles.cadastrarBtn} onPress={signUp}>

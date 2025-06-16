@@ -13,6 +13,7 @@ import AdicionarReceitas from './EditarReceita';
 import EnviarReceitas from './EnviarReceita';
 import EditarReceita from './EditarReceita';
 import SignUp from './SignUp';
+import UserRecipes from './UserRecipes';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -51,6 +52,10 @@ export default function App() {
       setCurrentScreenComponent(<User setCurrentScreen={setCurrentScreen} loggedUser={loggedUser} />);
     } else if (currentScreen === 'EnviarReceita') {
       setCurrentScreenComponent(<EnviarReceitas loggedUser={loggedUser} />);
+    } else if (currentScreen === 'UserRecipes') {
+      setCurrentScreenComponent(<UserRecipes loggedUser={loggedUser} setCurrentScreen={setCurrentScreen} setCurrentScreenComponent={setCurrentScreenComponent} />);
+    } else if (currentScreen === 'EditUser') {
+      setCurrentScreenComponent(<EditUser loggedUser={loggedUser} />)
     }
 
   }, [currentScreen]);
