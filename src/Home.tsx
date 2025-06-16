@@ -22,7 +22,7 @@ export default function Home({ setCurrentScreen, setCurrentScreenComponent }) {
             description: doc.data().description,
             owner: doc.data().owner,
             imageURL: doc.data().imageURL,
-            difficulty: doc.data().difficult,
+            difficulty: doc.data().difficulty,
             time: doc.data().time,
             kcal: doc.data().kcal,
             ingredients: doc.data().ingredients,

@@ -1,25 +1,20 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import EditUser from './EditUser';
+import { auth } from './Firebase';
 
 export default function User({ setCurrentScreen, loggedUser }) {
   const logOut = () => {
     setCurrentScreen('Login');
   }
+  const deleteUserInfo = () => {
+    Alert.alert('Requisição de exclusão', 'Infelizmente ainda não conseguimos deletar sua conta diretamente pelo app, para excluir sua conta e dados, envie uma requisição de exclusão para o email accountdeletion@spicefood.com e siga as instruções.');
+  }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.name}>Bem Vindo(a), {loggedUser.name}</Text>
+      <Text style={styles.name}>Bem Vindo(a),{'\n'}{loggedUser.name}</Text>
       <View style={styles.optionsBox}>
-        {/* <TouchableOpacity style={styles.option}>
-          <Image source={require('../assets/icons/heart.png')} style={styles.icon} />
-          <Text style={styles.optionText}>Favoritos</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.option}>
-          <Image source={require('../assets/icons/settings.png')} style={styles.icon} />
-          <Text style={styles.optionText}>Configurações</Text>
-          </TouchableOpacity> */}
         <TouchableOpacity style={styles.option} onPress={logOut}>
           <Image source={require('../assets/icons/log-off.png')} style={styles.icon} />
           <Text style={styles.optionText}>Sair da Conta</Text>
@@ -30,7 +25,7 @@ export default function User({ setCurrentScreen, loggedUser }) {
           <Text style={styles.optionText}>Alterar dados</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.option}>
+        <TouchableOpacity style={styles.option} onPress={deleteUserInfo}>
           <Image source={require('../assets/icons/trash.png')} style={styles.icon} />
           <Text style={styles.optionText}>Excluir Conta</Text>
         </TouchableOpacity>
