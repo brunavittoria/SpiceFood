@@ -42,12 +42,6 @@ export default function Home({ setCurrentScreen, setCurrentScreenComponent }) {
         <Image style={styles.logo} source={require('../assets/icons/logo-app.png')} />
       </View>
 
-      {/* Configure btn for back end */}
-      <View>
-        <TextInput style={styles.input} placeholder='Pesquisar' />
-        <Image style={styles.inputIcon} source={require('../assets/icons/search.png')} />
-      </View>
-
       <ScrollView contentContainerStyle={styles.cardsBox}>
         {recipes.map((recipe, index) => <CardRecipe key={index} id={recipe.id} title={recipe.title} description={recipe.description} owner={recipe.owner} imageURL={recipe.imageURL} difficulty={recipe.difficulty} time={recipe.time} kcal={recipe.kcal} ingredients={recipe.ingredients} howToDo={recipe.howToDo} setCurrentScreen={setCurrentScreen} setCurrentScreenComponent={setCurrentScreenComponent} deleteBtn={false} />)}
       </ScrollView>

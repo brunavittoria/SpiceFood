@@ -22,7 +22,7 @@ export default function NavBar({ setCurrentScreen, loggedUser }) {
         <TouchableOpacity style={styles.icon} onPress={() => setCurrentScreen('EnviarReceita')}>
           <Image source={require('../assets/icons/plus.png')} />
         </TouchableOpacity>
-        <Text style={styles.txt}>Enviar Receita</Text>
+        <Text style={styles.txt}>Enviar</Text>
       </View>
 
       <View style={styles.navItem}>

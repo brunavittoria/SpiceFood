@@ -53,9 +53,6 @@ export default function Login({ setCurrentScreen, setLoggedUser }) {
         <TouchableOpacity style={styles.entrarBtn} onPress={signIn}>
           <Text style={styles.btnText}>Entrar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.convidadoBtn}>
-          <Text style={styles.convidadoText}>Entrar como convidado</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={styles.semContaBtn} onPress={() => setCurrentScreen('SignUp')}>
           <Text style={styles.semContaText}>Não tem uma conta? {'\n'} Cadastre-se aqui!</Text>
         </TouchableOpacity>

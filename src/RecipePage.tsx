@@ -103,7 +103,7 @@ const estilos = StyleSheet.create({
     color: '#2f2f2f',
   },
   imagem: {
-    width: 370,
+    width: '100%',
     height: 370,
     borderRadius: 12,
     marginBottom: 16,
